@@ -399,15 +399,15 @@ namespace Monitor.Core.Utilities
                 IntPtr.Zero, ECreationDisposition.OpenExisting,
                 EFileAttributes.BackupSemantics | EFileAttributes.OpenReparsePoint, IntPtr.Zero), true);
 
-            if (Marshal.GetLastWin32Error() != 0)
-                ThrowLastWin32Error("Unable to open reparse point.");
+            //if (Marshal.GetLastWin32Error() != 0)
+                //ThrowLastWin32Error("Unable to open reparse point.");
 
             return reparsePointHandle;
         }
 
         private static void ThrowLastWin32Error(string message)
         {
-            throw new IOException(message, Marshal.GetExceptionForHR(Marshal.GetHRForLastWin32Error()));
+            //throw new IOException(message, Marshal.GetExceptionForHR(Marshal.GetHRForLastWin32Error()));
         }
     }
 }
