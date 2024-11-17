@@ -11,6 +11,7 @@ using System.Security;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+//using System.Windows.Shapes;
 
 namespace EasyBackup.Helpers
 {
@@ -137,11 +138,7 @@ namespace EasyBackup.Helpers
 				}
 				string tempPath = Path.Combine(destDirName, file.Name);
 				bool shouldAllow = ShouldAllowPath(excludedPaths, file.FullName);
-				if (_isCalculatingFileSize && shouldAllow)
-				{
-					_currentDirectorySize += (ulong)file.Length;
-				}
-				else if (shouldAllow)
+				if (shouldAllow)
 				{
 					CopySingleFile(itemBeingCopied, file.FullName, tempPath);
 				}
@@ -258,6 +255,12 @@ namespace EasyBackup.Helpers
 					//destination = "\\\\?\\" + destination; // force long path syntax
 					//source = "\\\\?\\" + source; // force long path syntax
 					if (!shouldOverwrite)
+					{
+						return;
+					}
+					var fileInfo = new FileInfo(source);
+					_currentDirectorySize += (ulong)fileInfo.Length;
+					if (_isCalculatingFileSize)
 					{
 						return;
 					}
